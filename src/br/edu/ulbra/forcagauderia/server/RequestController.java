@@ -8,7 +8,10 @@ import java.util.Scanner;
 import com.google.gson.Gson;
 
 import br.edu.ulbra.forcagauderia.common.json.BuscarPalavraJSON;
+import br.edu.ulbra.forcagauderia.common.json.EncerrarJogoJSON;
+import br.edu.ulbra.forcagauderia.common.json.RankingJSON;
 import br.edu.ulbra.forcagauderia.common.model.Palavra;
+import br.edu.ulbra.forcagauderia.common.model.UsuarioRanking;
 
 public class RequestController extends Thread {
 
@@ -34,10 +37,19 @@ public class RequestController extends Thread {
 			Palavra palavra = palavras.sorteia();
 			String retorno = gson.toJson(new BuscarPalavraJSON(palavra.getPalavra(), palavra.getDica()));
 			outputStream.println(retorno);
+			outputStream.flush();
 		} else if (comando.startsWith("ENCERRARJOGO")){
-			outputStream.println("TBD");
+			String[] parsed = comando.split(" ");
+			Ranking ranking = new Ranking();
+			UsuarioRanking usuario = ranking.updateRanking(parsed[1], parsed[2], Integer.parseInt(parsed[3]), Integer.parseInt(parsed[4]));
+			String retorno = gson.toJson(EncerrarJogoJSON.fromUsuarioRanking(usuario));
+			outputStream.println(retorno);
+			outputStream.flush();
 		} else if (comando.equals("BUSCARRANKING")){
-			outputStream.println("TBD");
+			RankingJSON ranking = RankingJSON.fromRanking(new Ranking());
+			String retorno = gson.toJson(ranking);
+			outputStream.println(retorno);
+			outputStream.flush();
 		}
 		
 	}

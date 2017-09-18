@@ -1,8 +1,12 @@
 package br.edu.ulbra.forcagauderia.common.json;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 
 import br.edu.ulbra.forcagauderia.common.model.UsuarioRanking;
+import br.edu.ulbra.forcagauderia.server.Ranking;
 
 public class RankingJSON {
 
@@ -23,4 +27,15 @@ public class RankingJSON {
 		this.ranking = ranking;
 	}
 
+	public static RankingJSON fromRanking(Ranking ranking){
+		RankingJSON rankingJSON = new RankingJSON();
+		ArrayList<UsuarioRankingJSON> arrayUsuarios = new ArrayList<>();
+		for(UsuarioRanking usuarioRanking : ranking.getRanking()){
+			arrayUsuarios.add(UsuarioRankingJSON.fromUsuarioRanking(usuarioRanking));
+		}
+		arrayUsuarios.sort(Collections.reverseOrder());
+		rankingJSON.setRanking(arrayUsuarios);
+		return rankingJSON;
+	}
+	
 }

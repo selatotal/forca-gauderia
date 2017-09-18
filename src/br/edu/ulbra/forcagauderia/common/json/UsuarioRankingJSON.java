@@ -2,7 +2,7 @@ package br.edu.ulbra.forcagauderia.common.json;
 
 import br.edu.ulbra.forcagauderia.common.model.UsuarioRanking;
 
-public class UsuarioRankingJSON {
+public class UsuarioRankingJSON implements Comparable<UsuarioRankingJSON>{
 
 	private String usuario;
 	private int vitorias;
@@ -51,13 +51,23 @@ public class UsuarioRankingJSON {
 		this.percentual = percentual;
 	}
 
-	public UsuarioRankingJSON fromUsuarioRanking(UsuarioRanking usuarioRanking){
+	public static UsuarioRankingJSON fromUsuarioRanking(UsuarioRanking usuarioRanking){
 		UsuarioRankingJSON usuarioRankingJSON = new UsuarioRankingJSON();
 		usuarioRankingJSON.usuario = usuarioRanking.getUsuario();
 		usuarioRankingJSON.vitorias = usuarioRanking.getVitorias();
 		usuarioRankingJSON.derrotas = usuarioRanking.getDerrotas();
-		usuarioRankingJSON.percentual = (this.vitorias / this.derrotas) * 100.0;
+		usuarioRankingJSON.percentual = (usuarioRankingJSON.vitorias / usuarioRankingJSON.derrotas) * 100.0;
 		return usuarioRankingJSON;
+	}
+
+	@Override
+	public int compareTo(UsuarioRankingJSON o) {
+		if (this.percentual > o.percentual){
+			return 1;
+		} else if (this.percentual < o.percentual){
+			return -1;
+		}
+		return 0;
 	}
 	
 }

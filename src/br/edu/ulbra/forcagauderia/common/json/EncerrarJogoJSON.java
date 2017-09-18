@@ -41,7 +41,7 @@ public class EncerrarJogoJSON {
 		this.vitorias = vitorias;
 	}
 	
-	public EncerrarJogoJSON fromUsuarioRanking(UsuarioRanking usuarioRanking){
+	public static EncerrarJogoJSON fromUsuarioRanking(UsuarioRanking usuarioRanking){
 		EncerrarJogoJSON encerrarJogoJSON = new EncerrarJogoJSON();
 		encerrarJogoJSON.usuario = usuarioRanking.getUsuario();
 		encerrarJogoJSON.vitorias = usuarioRanking.getVitorias();
