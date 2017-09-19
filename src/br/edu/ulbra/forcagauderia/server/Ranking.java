@@ -1,5 +1,6 @@
 package br.edu.ulbra.forcagauderia.server;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -20,7 +21,7 @@ public class Ranking {
 	public UsuarioRanking updateRanking(String usuario, String chave, int vitorias, int derrotas){
 		boolean achou = false;
 		UsuarioRanking atualiza = null;
-		for (UsuarioRanking usuarioRanking : ranking){
+		for (UsuarioRanking usuarioRanking : this.ranking){
 			if (usuarioRanking.getUsuario().equalsIgnoreCase(usuario) && usuarioRanking.getChave().equals(chave)){
 				atualiza = usuarioRanking;
 				achou = true;
@@ -43,11 +44,17 @@ public class Ranking {
 	@SuppressWarnings("unchecked")
 	private void loadFile(){
 		try {
-			ObjectInputStream input = new ObjectInputStream(new FileInputStream(Config.ARQUIVO_RANKING));
-			this.ranking = (ArrayList<UsuarioRanking>)input.readObject();
-			input.close();
+			File fileInput = new File(Config.ARQUIVO_RANKING);
+			if (fileInput.exists() && fileInput.isFile()){
+				ObjectInputStream input = new ObjectInputStream(new FileInputStream(Config.ARQUIVO_RANKING));
+				this.ranking = (ArrayList<UsuarioRanking>)input.readObject();
+				input.close();
+			} else {
+				this.ranking = new ArrayList<>();
+			}
 		} catch (IOException | ClassNotFoundException e) {
 			System.out.println("ERROR loading ranking file: " + e.getMessage());
+			e.printStackTrace();
 		}
 	}
 	

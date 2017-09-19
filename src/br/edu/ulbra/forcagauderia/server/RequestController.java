@@ -31,27 +31,28 @@ public class RequestController extends Thread {
 	public void run(){
 		
 		// Busca comando enviado
-		String comando = inputStream.nextLine();
-		
-		if (comando.equals("BUSCARPALAVRA")){
-			Palavra palavra = palavras.sorteia();
-			String retorno = gson.toJson(new BuscarPalavraJSON(palavra.getPalavra(), palavra.getDica()));
-			outputStream.println(retorno);
-			outputStream.flush();
-		} else if (comando.startsWith("ENCERRARJOGO")){
-			String[] parsed = comando.split(" ");
-			Ranking ranking = new Ranking();
-			UsuarioRanking usuario = ranking.updateRanking(parsed[1], parsed[2], Integer.parseInt(parsed[3]), Integer.parseInt(parsed[4]));
-			String retorno = gson.toJson(EncerrarJogoJSON.fromUsuarioRanking(usuario));
-			outputStream.println(retorno);
-			outputStream.flush();
-		} else if (comando.equals("BUSCARRANKING")){
-			RankingJSON ranking = RankingJSON.fromRanking(new Ranking());
-			String retorno = gson.toJson(ranking);
-			outputStream.println(retorno);
-			outputStream.flush();
+		while(true){
+			String comando = inputStream.nextLine();
+			
+			if (comando.equals("BUSCARPALAVRA")){
+				Palavra palavra = palavras.sorteia();
+				String retorno = gson.toJson(new BuscarPalavraJSON(palavra.getPalavra(), palavra.getDica()));
+				outputStream.println(retorno);
+				outputStream.flush();
+			} else if (comando.startsWith("ENCERRARJOGO")){
+				String[] parsed = comando.split(" ");
+				Ranking ranking = new Ranking();
+				UsuarioRanking usuario = ranking.updateRanking(parsed[1], parsed[2], Integer.parseInt(parsed[3]), Integer.parseInt(parsed[4]));
+				String retorno = gson.toJson(EncerrarJogoJSON.fromUsuarioRanking(usuario));
+				outputStream.println(retorno);
+				outputStream.flush();
+			} else if (comando.equals("BUSCARRANKING")){
+				RankingJSON ranking = RankingJSON.fromRanking(new Ranking());
+				String retorno = gson.toJson(ranking);
+				outputStream.println(retorno);
+				outputStream.flush();
+			}
 		}
-		
 	}
 	
 }

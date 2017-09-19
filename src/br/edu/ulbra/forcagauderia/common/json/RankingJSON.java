@@ -1,9 +1,7 @@
 package br.edu.ulbra.forcagauderia.common.json;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
 
 import br.edu.ulbra.forcagauderia.common.model.UsuarioRanking;
 import br.edu.ulbra.forcagauderia.server.Ranking;

@@ -56,7 +56,7 @@ public class UsuarioRankingJSON implements Comparable<UsuarioRankingJSON>{
 		usuarioRankingJSON.usuario = usuarioRanking.getUsuario();
 		usuarioRankingJSON.vitorias = usuarioRanking.getVitorias();
 		usuarioRankingJSON.derrotas = usuarioRanking.getDerrotas();
-		usuarioRankingJSON.percentual = (usuarioRankingJSON.vitorias / usuarioRankingJSON.derrotas) * 100.0;
+		usuarioRankingJSON.percentual = (usuarioRankingJSON.vitorias / (double)(usuarioRankingJSON.vitorias + usuarioRankingJSON.derrotas)) * 100.0;
 		return usuarioRankingJSON;
 	}
 

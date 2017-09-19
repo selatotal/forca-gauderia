@@ -1,7 +1,10 @@
 package br.edu.ulbra.forcagauderia.common.model;
 
-public class UsuarioRanking {
+import java.io.Serializable;
 
+public class UsuarioRanking implements Serializable{
+
+	private static final long serialVersionUID = 6668431430798464665L;
 	private String usuario;
 	private String chave;
 	private int vitorias;

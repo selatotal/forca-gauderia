@@ -17,7 +17,7 @@ public class Main {
 		while(arquivoEntrada.hasNextLine()){
 			String linha = arquivoEntrada.nextLine();
 			if (linha.contains("|")){
-				String[] arrLinha = linha.split("|", 2);
+				String[] arrLinha = linha.split("\\|", 2);
 				Palavra palavra = new Palavra(arrLinha[0], arrLinha[1]);
 				palavras.adicionaPalavra(palavra);
 			}
@@ -39,6 +39,7 @@ public class Main {
 		
 		try {
 			// Cria o ServerSocket e aguarda conexoes
+			@SuppressWarnings("resource")
 			ServerSocket server = new ServerSocket(Config.SERVER_PORT);
 			
 			while(true){
