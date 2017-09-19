@@ -1,5 +1,7 @@
 package br.edu.ulbra.forcagauderia.common.model;
 
+import br.edu.ulbra.forcagauderia.common.json.BuscarPalavraJSON;
+
 public class Palavra {
 
 	private String palavra;
@@ -29,4 +31,8 @@ public class Palavra {
 		this.dica = dica;
 	}
 
+	public static Palavra fromBuscarPalavraJSON(BuscarPalavraJSON buscarPalavraJSON){
+		return new Palavra(buscarPalavraJSON.getPalavra(), buscarPalavraJSON.getDica());
+	}
 }
+
